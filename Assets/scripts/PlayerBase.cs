@@ -87,7 +87,6 @@ public class PlayerBase : MonoBehaviour
             }
             passenger.BlanketRequest = false;
         }
-
     }
 
     public Transform[] GetLuggage()
@@ -105,7 +104,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (luggageMountPoint.childCount < MaxLuggage)
         {
-            Blanket.parent = luggageMountPoint;
+            Blanket.SetParent(luggageMountPoint);
             Blanket.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             setItemsPos();
         }

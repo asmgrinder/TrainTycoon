@@ -57,8 +57,16 @@ public class GameManager : MonoBehaviour
     //saveInfo = JsonUtility.FromJson<SaveInfo>(json);
     // JsonUtility.FromJsonOverwrite(json, saveInfo);
 
+    void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Application.targetFrameRate = 60;
+    }
+
+
     void Awake()
     {
+        SceneManager.sceneLoaded += onSceneLoaded;
+
         int level = SceneManager.GetActiveScene().buildIndex;
         dataFilePath = Path.Combine(Application.persistentDataPath, "GameData" + level.ToString() + ".json");
         Debug.Log("Save file path: " + dataFilePath);
@@ -80,6 +88,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         load();
         CoinsText.text = coins.ToString();
     }
