@@ -43,6 +43,7 @@ public class PassengerController : MovingCharController
     Quaternion initialBriefcaseLocalRot;
 
     static int toiletVisitors = 0;
+    bool toiletChanceTriggered = false;
 
     private IEnumerator updateEnum = null;
 
@@ -65,6 +66,7 @@ public class PassengerController : MovingCharController
         initialize();
         luggageMountPoint = Briefcase.parent;
         initialBriefcaseLocalRot = Briefcase.localRotation;
+        StartCoroutine(toiletChances());
     }
 
     // Update is called once per frame
@@ -152,13 +154,15 @@ public class PassengerController : MovingCharController
                 yield return 0;
             }
 
+            toiletChanceTriggered = false;
+
             // await station
             GameManager.TrainState prevState = GameManager.Instance.State;
             while (!(GameManager.TrainState.Moving == prevState
                     && GameManager.TrainState.Station == GameManager.Instance.State))
             {
                 if (pathMan.Toilet.gameObject.activeSelf
-                    && Random.Range(0f, 1f) < toiletChance)
+                    && toiletChanceTriggered)
                 {
                     if (1 == ++toiletVisitors)  // exclusively aquire toilet
                     {
@@ -275,4 +279,16 @@ public class PassengerController : MovingCharController
         }
     }
 
+    IEnumerator toiletChances()
+    {
+        do
+        {
+            if (Random.Range(0f, 1f) < toiletChance)
+            {
+                toiletChanceTriggered = true;
+            }
+            yield return new WaitForSeconds(0.033333f);
+        }
+        while (true);
+    }
 }

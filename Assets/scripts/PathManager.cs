@@ -23,8 +23,7 @@ public class PathManager : PathBase
     // Update is called once per frame
     void Update()
     {
-        if (respawnPassengers
-            && GameManager.Instance.CanRespawnPassengers
+        if (GameManager.Instance.CanRespawnPassengers
             && null != PassengerPrefab)
         {
             for (int i = 0; i < scs.Length; i++)
