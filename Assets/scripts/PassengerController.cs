@@ -164,6 +164,7 @@ public class PassengerController : MovingCharController
                 if (pathMan.Toilet.gameObject.activeSelf
                     && toiletChanceTriggered)
                 {
+                    toiletChanceTriggered = false;
                     if (1 == ++toiletVisitors)  // exclusively aquire toilet
                     {
                         requestCircle.gameObject.SetActive(true);
@@ -287,7 +288,7 @@ public class PassengerController : MovingCharController
             {
                 toiletChanceTriggered = true;
             }
-            yield return new WaitForSeconds(0.033333f);
+            yield return new WaitForSeconds(0.1f);
         }
         while (true);
     }
