@@ -288,7 +288,7 @@ public class PassengerController : MovingCharController
             {
                 toiletChanceTriggered = true;
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.025f);
         }
         while (true);
     }
